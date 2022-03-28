@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   //   console.log(req.body);
-  const post = new User2({
+  const user = new User2({
     name: req.body.name,
     address: req.body.address,
     phoneNo: req.body.phoneNo,
@@ -27,11 +27,16 @@ router.post("/", async (req, res) => {
     typeOfPerson: req.body.typeOfPerson,
   });
 
-  //   console.log(post);
+  //   console.log(user);
   try {
-    let savedPost = await post.save();
+    let userData = await User2.find({ "email": req.body.email });
+    console.log(userData.length);
+    if (userData.length > 0) {
+      throw ({ error: 'user already exists' });
+    }
+    let savedUser = await user.save();
     const token = jwt.sign(
-      { user_id: savedPost._id, email: savedPost.email },
+      { user_id: savedUser._id, email: savedUser.email ,userType:savedUser.typeOfPerson},
       "riyad",
       {
         expiresIn: "24h",
@@ -41,7 +46,7 @@ router.post("/", async (req, res) => {
     // console.log(token);
     res.status(200).json({
       error: false,
-      data: savedPost,
+      data: savedUser,
       token: token,
       message: "registration completed"
     })

@@ -7,7 +7,7 @@ const User2 = require("../models/User2");
 router.get("/", async (req, res) => {
   try {
 
-    const posts = await User2.find();
+    const posts = await User2.find().populate("categories");
     res.json(posts);
   } catch (err) {
     res.json({ message: err });
@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const post = await User2.findById(req.params.id);
+    const post = await User2.findById(req.params.id).populate("categories");
     res.json(post);
   } catch (err) {
     res.status(404);

@@ -1,17 +1,29 @@
 const mongoose = require("mongoose");
 
 const FoodSchema = mongoose.Schema({
-  name: {
+  foodName:{
     type: String,
-    required: true,
+    required: true
   },
-  price: {
-    type: Number,
-    required: true,
-  },
-  description: {
+  foodPrice:{
     type: String,
-    required: false,
+    required: true
+  },
+  foodImg:{
+    type: String,
+    required: true
+  },
+  foodDescription:{
+    type: String,
+    required: true
+  },
+  category:{
+    type: String,
+    required: true
+  },
+  catererId:{
+    type: String,
+    required: true
   },
   registerDate: {
     type: Date,

@@ -13,11 +13,23 @@ router.get('/', async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
+  // const file = req.files.file;
+  // const newImg = file.data;
+  // const encImg = newImg.toString('base64');
+  // let image = {
+  //     contentType: file.mimetype,
+  //     size: file.size,
+  //     img: Buffer.from(encImg, 'base64')
+  // };
+  // const {img}=req.body
   const food = new Food({
-    name: req.body.name,
-    price: req.body.price,
-    description: req.body.description,
-    registerDate: req.body.registerDate,
+    foodName: req.body.name,
+    foodPrice: req.body.price,
+    foodImg: req.body.img,
+    foodDescription: req.body.description,
+    category: req.body.category,
+    catererId: req.body.catererId,
+   
   });
 
   try {

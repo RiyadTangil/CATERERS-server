@@ -22,12 +22,18 @@ app.get('/', (req, res) => res.status(200).send(JSON.stringify('Welcome to our C
 
 const postsRoute = require('./routes/posts')
 app.use('/posts', postsRoute)
+
 const user2Route = require('./routes/user2')
 app.use('/user2', user2Route)
+
 const loginRouter = require('./routes/login')
 app.use('/login', loginRouter)
+
 const categoryRoute = require('./routes/category')
 app.use('/category', categoryRoute)
+
+const ordersRoute = require('./routes/orders')
+app.use('/orders', ordersRoute)
 
 const customersRoute = require('./routes/customers')
 app.use('/customers', customersRoute)

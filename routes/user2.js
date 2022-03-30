@@ -7,7 +7,7 @@ const User2 = require("../models/User2");
 router.get("/", async (req, res) => {
   try {
 
-    const posts = await User2.find().populate("categories");
+    const posts = await User2.find({});
     res.json(posts);
   } catch (err) {
     res.json({ message: err });

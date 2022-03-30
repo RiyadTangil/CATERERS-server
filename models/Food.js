@@ -25,6 +25,14 @@ const FoodSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  publishStatus:{
+    type: String,
+    required: true
+  },
+  produceAvailable:{
+    type: String,
+    required: true
+  },
   registerDate: {
     type: Date,
     default: Date.now,

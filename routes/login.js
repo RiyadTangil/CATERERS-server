@@ -11,13 +11,19 @@ router.post("/", async (req, res) => {
     if (userData.length === 0) {
       throw ({ error: 'No email  info available' })
     }
-  
+
     if (userData[0].password !== req.body.password) {
       throw ({ error: 'password in not matched' })
     }
 
     const token = jwt.sign(
-      { user_id: userData[0]._id, email: userData[0].email ,userType:userData[0].typeOfPerson},
+      {
+        user_id: userData[0]._id,
+        name: userData[0].name,
+        address:  userData[0].address,
+        email: userData[0].email,
+        userType: userData[0].typeOfPerson
+      },
       "riyad",
       {
         expiresIn: "24h",

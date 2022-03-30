@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
     //   _id: req.body.userId
     // }, {
     //   $push: {
-    //     categories: savedCategory._id
+    //     todos: savedCategory._id
     //   }
     // });
     res.json(savedCategory);

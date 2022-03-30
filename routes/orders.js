@@ -12,6 +12,15 @@ router.get("/", async (req, res) => {
     res.json({ message: err });
   }
 });
+router.get("/my-orders/:id", async (req, res) => {
+  try {
+    
+    const orders = await Order.find({user: req.params.id});
+    res.json(orders);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
 router.post("/", async (req, res) => {
   //   console.log(req.body);

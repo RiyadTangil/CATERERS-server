@@ -7,8 +7,17 @@ const User2 = require("../models/User2");
 router.get("/", async (req, res) => {
   try {
 
-    const posts = await User2.find({});
-    res.json(posts);
+    const users = await User2.find({});
+    res.json(users);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+router.get("/with-category", async (req, res) => {
+  try {
+
+    const users = await User2.find({}).populate("categories",);
+    res.json(users);
   } catch (err) {
     res.json({ message: err });
   }

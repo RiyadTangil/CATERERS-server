@@ -29,6 +29,9 @@ app.use('/user2', user2Route)
 const loginRouter = require('./routes/login')
 app.use('/login', loginRouter)
 
+const restaurantRoute = require('./routes/restaurants')
+app.use('/restaurant', restaurantRoute)
+
 const categoryRoute = require('./routes/category')
 app.use('/category', categoryRoute)
 

@@ -36,12 +36,19 @@ const PostSchema = mongoose.Schema({
     enum: ["customer", "caterer", "admin"],
     required: true,
   },
-  categories:[
-    { 
+  categories: [
+    {
       type: mongoose.Types.ObjectId,
-      ref: "Category",
+      ref: "Categories",
+    }
+  ],
+  orders: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Orders",
     }
   ]
+
 });
 
 module.exports = mongoose.model("User2", PostSchema);

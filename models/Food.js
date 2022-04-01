@@ -21,10 +21,7 @@ const FoodSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  catererId:{
-    type: String,
-    required: true
-  },
+
   publishStatus:{
     type: String,
     required: true

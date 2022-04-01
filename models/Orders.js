@@ -4,19 +4,19 @@ const OrdersSchema = mongoose.Schema({
 
   price: {
     type: String,
-   required: true,
+   required: false,
   },
   status: {
     type: String,
-   required: true,
+   required: false,
   },
   ordersItems: {
     type: [],
-   required: true,
+   required: false,
   },
   paymentId: {
     type: String,
-   required: true,
+   required: false,
   },
   
   user: {

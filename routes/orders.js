@@ -3,10 +3,11 @@ const express = require("express");
 const router = express.Router();
 
 const Order = require("../models/Orders");
+const User2 = require("../models/User2");
 
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find({}).populate("user", "name email phoneNo");
+    const orders = await Order.find({}).populate("user", "categoryName");
     res.json(orders);
   } catch (err) {
     res.json({ message: err });
@@ -33,9 +34,15 @@ router.post("/", async (req, res) => {
 
   });
 
-    console.log(req.body.id);
   try {
     const savedOrder = await order.save();
+     await User2.updateOne({
+      _id: req.body.userId
+    }, {
+      $push: {
+        orders: savedOrder._id
+      }
+    });
     res.json(savedOrder);
   } catch (err) {
     res.json({ message: err });

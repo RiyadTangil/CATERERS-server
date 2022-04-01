@@ -5,11 +5,17 @@ const CategorySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  userEmail: {
-    type: String,
-    required: true,
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "User2",
   },
-  
+  foods: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Foods",
+    }
+  ],
+
   date: {
     type: Date,
     default: Date.now,

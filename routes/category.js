@@ -4,10 +4,27 @@ const router = express.Router();
 
 const Category = require("../models/Category");
 const User2 = require("../models/User2");
+const Restaurant = require("../models/Restaurant");
 
 router.get("/", async (req, res) => {
   try {
-    const category = await Category.find();
+    const category = await Category.find({});
+    res.json(category);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+router.get("/foodByCategory/:id", async (req, res) => {
+  try {
+    const category = await Category.find({ user: req.params.id }).populate("foods","foodName  foodPrice foodImg foodDescription");
+    res.json(category);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+router.get("/categoryByUser/:id", async (req, res) => {
+  try {
+    const category = await Category.find({ user: req.params.id });
     res.json(category);
   } catch (err) {
     res.json({ message: err });
@@ -16,22 +33,26 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   //   console.log(req.body);
-  
   //   console.log(post);
   try {
     const category = new Category({
       categoryName: req.body.categoryName,
-      userEmail: req.body.email,
+      user: req.body.id
     });
     const savedCategory = await category.save();
-    // await User2.updateOne({
-    //   _id: req.body.userId
-    // }, {
-    //   $push: {
-    //     todos: savedCategory._id
-    //   }
-    // });
-    res.json(savedCategory);
+    const previousRestaurant = await Restaurant.find({ user: req.body.id });
+    let isRestaurantAdded = false;
+    if (previousRestaurant.length < 1) {
+      const restaurant = new Restaurant({ user: req.body.id });
+       const savedRestaurant= await restaurant.save();
+       isRestaurantAdded=true
+      console.log(savedRestaurant, "added")
+    }
+    res.status(200).json({
+      error: false,
+      data: savedCategory,
+      message: "category added"
+    })
   } catch (err) {
     res.json({ message: err });
   }

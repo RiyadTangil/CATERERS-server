@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Food = require("../models/Food");
+const Category = require("../models/Category");
 
 router.get('/', async (req, res) => {
   try {
@@ -12,36 +13,34 @@ router.get('/', async (req, res) => {
   }
 })
 
+
 router.post("/", async (req, res) => {
-  // const file = req.files.file;
-  // const newImg = file.data;
-  // const encImg = newImg.toString('base64');
-  // let image = {
-  //     contentType: file.mimetype,
-  //     size: file.size,
-  //     img: Buffer.from(encImg, 'base64')
-  // };
-  // const {img}=req.body
-  const food = new Food({
-    foodName: req.body.name,
-    foodPrice: req.body.price,
-    foodImg: req.body.img,
-    foodDescription: req.body.description,
-    category: req.body.category,
-    catererId: req.body.catererId,
-    produceAvailable: req.body.produceAvailable,
-    publishStatus: req.body.publishStatus,
-
-  });
-
   try {
+    const food = new Food({
+      foodName: req.body.name,
+      foodPrice: req.body.price,
+      foodImg: req.body.img,
+      foodDescription: req.body.description,
+      category: req.body.category,
+      produceAvailable: req.body.produceAvailable,
+      publishStatus: req.body.publishStatus,
+  
+    });
     const savedFood = await food.save();
+    console.log(req.body.catererId);
+    await Category.updateOne({
+      _id: req.body.catererId
+    }, {
+      $push: {
+        foods: savedFood._id
+      }
+    });
     res.status(200).json({
       error: false,
       data: savedFood,
       message: "food added successfully"
     })
-    res.json(savedFood);
+ 
   } catch (err) {
     res.status(404);
     res.json({ message: err });
@@ -76,9 +75,8 @@ router.put('/:id', async (req, res) => {
   let foodImg = req.body.img;
   let produceAvailable = req.body.produceAvailable;
   let publishStatus = req.body.publishStatus;
-
   const id = req.params.id;
-  console.log("working", foodPrice)
+
   try {
     let updatedFood;
     if (description)

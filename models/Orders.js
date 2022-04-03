@@ -18,8 +18,11 @@ const OrdersSchema = mongoose.Schema({
     type: String,
    required: false,
   },
-  
-  user: {
+  catererId: {
+    type: String,
+   required: true,
+  },
+  customer: {
     type: mongoose.Types.ObjectId,
       ref: "User2",
   },

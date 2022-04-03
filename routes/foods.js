@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
       foodImg: req.body.img,
       foodDescription: req.body.description,
       category: req.body.category,
+      userId: req.body.userId,
       produceAvailable: req.body.produceAvailable,
       publishStatus: req.body.publishStatus,
   

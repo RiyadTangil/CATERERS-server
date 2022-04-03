@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 });
 router.get("/foodByCategory/:id", async (req, res) => {
   try {
-    const category = await Category.find({ user: req.params.id }).populate("foods","foodName  foodPrice foodImg foodDescription");
+    const category = await Category.find({ user: req.params.id }).populate("foods","foodName  foodPrice foodImg foodDescription userId");
     res.json(category);
   } catch (err) {
     res.json({ message: err });

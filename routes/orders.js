@@ -7,7 +7,8 @@ const User2 = require("../models/User2");
 
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find({}).populate("user", "name email phoneNo");
+    // const orders = await Order.find({}).populate("user", "name email phoneNo");
+    const orders = await Order.find({});
     res.json(orders);
   } catch (err) {
     res.json({ message: err });
@@ -15,8 +16,17 @@ router.get("/", async (req, res) => {
 });
 router.get("/my-orders/:id", async (req, res) => {
   try {
+   
+    const orders = await Order.find({customer: req.params.id});
+    res.json(orders);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+router.get("/caterer-orders/:id", async (req, res) => {
+  try {
     
-    const orders = await Order.find({user: req.params.id}).populate("user", "name email phoneNo");
+    const orders = await Order.find({catererId: req.params.id}).populate("customer");
     res.json(orders);
   } catch (err) {
     res.json({ message: err });
@@ -30,19 +40,12 @@ router.post("/", async (req, res) => {
     paymentId: req.body.paymentId,
     status: req.body.status,
     ordersItems: req.body.ordersItems,
-    user: req.body.id
-
+    customer: req.body.customerId,
+    catererId: req.body.catererId
   });
 
   try {
     const savedOrder = await order.save();
-     await User2.updateOne({
-      _id: req.body.userId
-    }, {
-      $push: {
-        orders: savedOrder._id
-      }
-    });
     res.json(savedOrder);
   } catch (err) {
     res.json({ message: err });

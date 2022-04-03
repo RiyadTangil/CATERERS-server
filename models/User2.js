@@ -23,9 +23,15 @@ const PostSchema = mongoose.Schema({
   },
   shopPhone: {
     type: String,
+  
   },
   shopName: {
     type: String,
+ 
+  },
+  shopImg: {
+    type: String,
+ 
   },
   registerDate: {
     type: Date,

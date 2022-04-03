@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     shopName: req.body.shopName,
+    shopImg: req.body.shopImg,
     shopPhone: req.body.shopPhone,
     typeOfPerson: req.body.typeOfPerson,
   });

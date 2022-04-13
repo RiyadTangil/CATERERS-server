@@ -4,7 +4,7 @@ const router = express.Router();
 const User2 = require("../models/User2");
 
 router.post("/", async (req, res) => {
-  //   console.log(req.body);
+
 
   try {
     let userData = await User2.find({ "email": req.body.email });
@@ -15,14 +15,20 @@ router.post("/", async (req, res) => {
     if (userData[0].password !== req.body.password) {
       throw ({ error: 'password in not matched' })
     }
-
     const token = jwt.sign(
       {
         user_id: userData[0]._id,
         name: userData[0].name,
-        address:  userData[0].address,
+        address: userData[0].address,
         email: userData[0].email,
-        userType: userData[0].typeOfPerson
+        phoneNo: userData[0].phoneNo,
+        shopImg: userData[0].shopImg,
+        shopName: userData[0].shopName,
+        shopPhone: userData[0].shopPhone,
+        typeOfPerson: userData[0].typeOfPerson,
+        profileImg: userData[0]?.profileImg,
+        projectId: userData[0]?.projectId,
+        privetId: userData[0]?.privetId
       },
       "riyad",
       {
@@ -33,7 +39,7 @@ router.post("/", async (req, res) => {
 
     res.status(200).json({
       error: false,
-      data: userData,
+      data: userData[0],
       token: token,
       message: "login completed"
     }

@@ -24,7 +24,7 @@ router.get("/with-category", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  //   console.log(req.body);
+  // console.log(req.body);
   const user = new User2({
     name: req.body.name,
     address: req.body.address,
@@ -45,8 +45,17 @@ router.post("/", async (req, res) => {
       throw ({ error: 'user already exists' });
     }
     let savedUser = await user.save();
+
     const token = jwt.sign(
-      { user_id: savedUser._id, email: savedUser.email ,userType:savedUser.typeOfPerson},
+      {
+        user_id: savedUser._id,
+        email: savedUser.email,
+        phoneNo: savedUser.phoneNo,
+        shopName: savedUser.shopName,
+        shopImg: savedUser.shopImg,
+        shopPhone: savedUser.shopPhone,
+        typeOfPerson: savedUser.typeOfPerson
+      },
       "riyad",
       {
         expiresIn: "24h",
@@ -68,22 +77,68 @@ router.post("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const post = await User2.findById(req.params.id).populate("categories");
-    res.json(post);
+    const user = await User2.findById(req.params.id).populate("categories");
+    res.json(user);
+  } catch (err) {
+    res.status(404);
+    res.json({ message: err });
+  }
+});
+router.get("/restaurantInfo/:id", async (req, res) => {
+  try {
+    const user = await User2.findById(req.params.id);
+    res.json(user);
   } catch (err) {
     res.status(404);
     res.json({ message: err });
   }
 });
 
-// router.get(":/postId", async (req, res) => {
-//   try {
-//     const post = await User2.findById(req.params.postId);
-//     res.json(post);
-//   } catch (err) {
-//     res.json({ message: err });
-//   }
-// });
+router.put('/:id', async (req, res) => {
+  let name = req.body.name;
+  let address = req.body.address;
+  let phoneNo = req.body.phoneNo;
+  let email = req.body.email;
+  let shopName = req.body.shopName;
+  let shopImg = req.body.shopImg;
+  let shopPhone = req.body.shopPhone;
+  let typeOfPerson = req.body.typeOfPerson;
+  let privetId = req.body.privetId;
+  let projectId = req.body.projectId;
+  const id = req.params.id;
+
+  try {
+    let updatedUser;
+    if (name)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { name: name });
+    if (address)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { address: address });
+    if (phoneNo)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { phoneNo: phoneNo });
+    if (email)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { email: email });
+    if (shopName)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { shopName: shopName });
+    if (shopImg)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { shopImg: shopImg });
+    if (shopPhone)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { shopPhone: shopPhone });
+    if (privetId)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { privetId: privetId });
+    if (projectId)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { projectId: projectId });
+    if (typeOfPerson)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { typeOfPerson: typeOfPerson });
+    res.status(200).json({
+      error: false,
+      data: updatedUser,
+      message: "update completed"
+    })
+  } catch (err) {
+    res.status(404);
+    res.json({ message: err });
+  }
+})
 
 router.delete(":/postId", async (req, res) => {
   try {

@@ -29,7 +29,19 @@ const PostSchema = mongoose.Schema({
     type: String,
  
   },
+  projectId: {
+    type: String,
+ 
+  },
+  privetId: {
+    type: String,
+ 
+  },
   shopImg: {
+    type: String,
+ 
+  },
+  profileImg: {
     type: String,
  
   },

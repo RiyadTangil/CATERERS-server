@@ -25,6 +25,10 @@ const FoodSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  vat:{
+    type: String,
+    required: true
+  },
 
   publishStatus:{
     type: String,

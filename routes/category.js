@@ -15,8 +15,36 @@ router.get("/", async (req, res) => {
   }
 });
 router.get("/foodByCategory/:id", async (req, res) => {
+
   try {
-    const category = await Category.find({ user: req.params.id }).populate("foods","foodName  foodPrice foodImg foodDescription userId");
+    // const category = await Category.find({ user: req.params.id }).populate({ path: "foods", options: { publishStatus: "unpublished" } })
+    const category = await Category.find({ user: req.params.id }).populate("foods", "foodName  foodPrice foodImg foodDescription userId publishStatus vat")
+
+    const user = await User2.findById(req.params.id)
+    const filteredFoods = category.map(category => {
+      let newCategory = category.toObject();
+      console.log(newCategory, category)
+      const publishedFood = category.foods.filter(food => food.publishStatus === "published")
+      newCategory.foods = publishedFood
+      return newCategory
+    })
+
+    res.status(200).json({
+      error: false,
+      data: filteredFoods,
+      user: user
+    })
+
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+router.get("/myFoods/:id", async (req, res) => {
+
+  try {
+    // const category = await Category.find({ user: req.params.id }).populate({ path: "foods", options: { publishStatus: "unpublished" } })
+    const category = await Category.find({ user: req.params.id }).populate("foods",  )
+
     res.json(category);
   } catch (err) {
     res.json({ message: err });
@@ -44,8 +72,8 @@ router.post("/", async (req, res) => {
     let isRestaurantAdded = false;
     if (previousRestaurant.length < 1) {
       const restaurant = new Restaurant({ user: req.body.id });
-       const savedRestaurant= await restaurant.save();
-       isRestaurantAdded=true
+      const savedRestaurant = await restaurant.save();
+      isRestaurantAdded = true
       console.log(savedRestaurant, "added")
     }
     res.status(200).json({

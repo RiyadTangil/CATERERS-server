@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
       userId: req.body.userId,
       produceAvailable: req.body.produceAvailable,
       publishStatus: req.body.publishStatus,
+      vat: req.body.vat,
   
     });
     const savedFood = await food.save();
@@ -94,6 +95,8 @@ router.put('/:id', async (req, res) => {
       updatedFood = await Food.findOneAndUpdate({ _id: id }, { publishStatus: publishStatus });
     if (foodImg)
       updatedFood = await Food.findOneAndUpdate({ _id: id }, { foodImg: foodImg });
+    if (vat)
+      updatedFood = await Food.findOneAndUpdate({ _id: id }, { vat: vat });
     res.status(200).json({
       error: false,
       data: updatedFood,

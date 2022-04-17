@@ -23,27 +23,32 @@ const PostSchema = mongoose.Schema({
   },
   shopPhone: {
     type: String,
-  
+  },
+  deliveryFee: {
+    type: String,
+  },
+  deliveryTime: {
+    type: String,
   },
   shopName: {
     type: String,
- 
+
   },
   projectId: {
     type: String,
- 
+
   },
   privetId: {
     type: String,
- 
+
   },
   shopImg: {
     type: String,
- 
+
   },
   profileImg: {
     type: String,
- 
+
   },
   registerDate: {
     type: Date,

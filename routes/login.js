@@ -27,7 +27,10 @@ router.post("/", async (req, res) => {
         shopPhone: userData[0].shopPhone,
         typeOfPerson: userData[0].typeOfPerson,
         profileImg: userData[0]?.profileImg,
+        password: userData[0]?.password,
         projectId: userData[0]?.projectId,
+        deliveryFee: userData[0]?.deliveryFee,
+        deliveryTime: userData[0]?.deliveryTime,
         privetId: userData[0]?.privetId
       },
       "riyad",

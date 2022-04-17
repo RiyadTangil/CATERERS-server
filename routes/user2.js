@@ -54,6 +54,9 @@ router.post("/", async (req, res) => {
         shopName: savedUser.shopName,
         shopImg: savedUser.shopImg,
         shopPhone: savedUser.shopPhone,
+        password: savedUser.password,
+        deliveryFee: savedUser.deliveryFee,
+        deliveryTime: savedUser.deliveryTime,
         typeOfPerson: savedUser.typeOfPerson
       },
       "riyad",
@@ -101,17 +104,22 @@ router.put('/:id', async (req, res) => {
   let phoneNo = req.body.phoneNo;
   let email = req.body.email;
   let shopName = req.body.shopName;
+  let password = req.body.password;
   let shopImg = req.body?.shopImg;
   let shopPhone = req.body.shopPhone;
   let typeOfPerson = req.body.typeOfPerson;
   let privetId = req.body.privetId;
   let projectId = req.body.projectId;
+  let deliveryTime = req.body.deliveryTime;
+  let deliveryFee = req.body.deliveryFee;
   const id = req.params.id;
 
   try {
     let updatedUser;
     if (name)
       updatedUser = await User2.findOneAndUpdate({ _id: id }, { name: name }, { new: true });
+    if (password)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { password: password }, { new: true });
     if (address)
       updatedUser = await User2.findOneAndUpdate({ _id: id }, { address: address }, { new: true });
     if (phoneNo)
@@ -130,27 +138,34 @@ router.put('/:id', async (req, res) => {
       updatedUser = await User2.findOneAndUpdate({ _id: id }, { projectId: projectId }, { new: true });
     if (typeOfPerson)
       updatedUser = await User2.findOneAndUpdate({ _id: id }, { typeOfPerson: typeOfPerson }, { new: true });
-    
-      const token = jwt.sign(
-        {
-          _id: updatedUser._id,
-          email: updatedUser.email,
-          address:updatedUser.address,
-          phoneNo: updatedUser.phoneNo,
-          shopName: updatedUser.shopName,
-          name: updatedUser.name,
-          shopImg: updatedUser.shopImg,
-          shopPhone: updatedUser.shopPhone,
-          typeOfPerson: updatedUser.typeOfPerson,
-          projectId: updatedUser.projectId,
-          privetId: updatedUser.privetId
-        },
-        "riyad",
-        {
-          expiresIn: "24h",
-        }
-      );
-      console.log(token,"Token")
+    if (deliveryTime)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { deliveryTime: deliveryTime }, { new: true });
+    if (deliveryFee)
+      updatedUser = await User2.findOneAndUpdate({ _id: id }, { deliveryFee: deliveryFee }, { new: true });
+
+    const token = jwt.sign(
+      {
+        _id: updatedUser._id,
+        email: updatedUser.email,
+        address: updatedUser.address,
+        phoneNo: updatedUser.phoneNo,
+        shopName: updatedUser.shopName,
+        name: updatedUser.name,
+        shopImg: updatedUser.shopImg,
+        password: updatedUser.password,
+        shopPhone: updatedUser.shopPhone,
+        typeOfPerson: updatedUser.typeOfPerson,
+        projectId: updatedUser.projectId,
+        deliveryTime: updatedUser.deliveryTime,
+        deliveryFee: updatedUser.deliveryFee,
+        privetId: updatedUser.privetId
+      },
+      "riyad",
+      {
+        expiresIn: "24h",
+      }
+    );
+    console.log(token, "Token")
     res.status(200).json({
       error: false,
       token: token,

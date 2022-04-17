@@ -75,6 +75,7 @@ router.put('/:id', async (req, res) => {
   let description = req.body.description;
   let category = req.body.category;
   let foodImg = req.body.img;
+  let vat = req.body.vat;
   let produceAvailable = req.body.produceAvailable;
   let publishStatus = req.body.publishStatus;
   const id = req.params.id;

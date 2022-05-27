@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Foods = require('../models/Food').schema;
-
 const MenuSchema = mongoose.Schema({
   foodName:{
     type: String,

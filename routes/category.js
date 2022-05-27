@@ -18,7 +18,7 @@ router.get("/foodByCategory/:id", async (req, res) => {
 
   try {
     // const category = await Category.find({ user: req.params.id }).populate({ path: "foods", options: { publishStatus: "unpublished" } })
-    const category = await Category.find({ user: req.params.id }).populate("foods", "foodName  foodPrice foodImg foodDescription userId publishStatus vat")
+    const category = await Category.find({ user: req.params.id }).populate("foods")
 
     const user = await User2.findById(req.params.id)
     const filteredFoods = category.map(category => {

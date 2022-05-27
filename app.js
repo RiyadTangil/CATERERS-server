@@ -26,6 +26,9 @@ app.use('/posts', postsRoute)
 const user2Route = require('./routes/user2')
 app.use('/user2', user2Route)
 
+const newsletterRoute = require('./routes/newsletter')
+app.use('/newsletter', newsletterRoute)
+
 const loginRouter = require('./routes/login')
 app.use('/login', loginRouter)
 

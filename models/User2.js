@@ -27,6 +27,9 @@ const PostSchema = mongoose.Schema({
   deliveryFee: {
     type: String,
   },
+  rating: {
+    type: String,
+  },
   deliveryTime: {
     type: String,
   },

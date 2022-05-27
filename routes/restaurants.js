@@ -4,7 +4,7 @@ const Restaurant = require("../models/Restaurant");
 
 router.get("/", async (req, res) => {
   try {
-    const restaurants = await Restaurant.find().populate("user","_id shopName shopPhone shopImg");
+    const restaurants = await Restaurant.find().populate("user","_id shopName rating shopPhone shopImg date");
     res.json(restaurants);
   } catch (err) {
     res.json({ message: err });

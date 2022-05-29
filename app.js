@@ -22,7 +22,7 @@ app.get('/', (req, res) => res.status(200).send(JSON.stringify('Welcome to our C
 
 const postsRoute = require('./routes/posts')
 app.use('/posts', postsRoute)
-
+//hello
 const user2Route = require('./routes/user2')
 app.use('/user2', user2Route)
 

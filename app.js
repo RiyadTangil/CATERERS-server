@@ -62,5 +62,5 @@ app.use('/menus', menusRoute)
 const usersRoute = require('./routes/users')
 app.use('/users', usersRoute)
 
-app.listen(process.env.PORT)
+app.listen(process.env.PORT || 5000)
 module.exports = app

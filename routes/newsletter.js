@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
     {
       "id":seconds.toString(),
       "title": `My Item number ${seconds}`,
-      "description": "Lorem ipsum",
+      "description": req?.body?.email,
       "image_url": "https://if-test-custom-api.herokuapp.com/asset/0",
       "last_update": seconds,
       "blob": {

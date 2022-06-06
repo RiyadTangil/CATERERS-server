@@ -52,15 +52,18 @@ const Newsletter = require("../models/Newsletter");
 // }
 // );
 router.post("/", async (req, res) => {
-  console.log(req?.body.email, "req.body.shopName",);
+
+  var seconds = new Date().getTime()
   const data = JSON.stringify([
     {
-      id: "11",
-      title: "My Item number 10",
-      description: "Lorem ipsum",
-      image_url: "https://if-test-custom-api.herokuapp.com/asset/0",
-      last_update: 1591670070,
-      blob: { Item: req?.body.email },
+      "id":seconds.toString(),
+      "title": `My Item number ${seconds}`,
+      "description": "Lorem ipsum",
+      "image_url": "https://if-test-custom-api.herokuapp.com/asset/0",
+      "last_update": seconds,
+      "blob": {
+        "Item": req?.body?.email
+      }
     },
   ]);
   const config = {
@@ -74,9 +77,11 @@ router.post("/", async (req, res) => {
     data: data,
   };
   const sendData = (data) => {
+    console.log(data.config.data,"config");
     return res.send({
       success: true,
       status: data.status,
+      data: data.config.data,
       message: "info added successfully.",
     });
   };

@@ -56,13 +56,14 @@ router.post("/", async (req, res) => {
   var seconds = new Date().getTime()
   const data = JSON.stringify([
     {
-      "id":seconds.toString(),
+      "id": seconds.toString(),
       "title": `My Item number ${seconds}`,
       "description": req?.body?.email,
       "image_url": "https://if-test-custom-api.herokuapp.com/asset/0",
       "last_update": seconds,
       "blob": {
-        "Item": req?.body?.email
+        "email": req?.body?.email,
+        "name": req?.body?.name,
       }
     },
   ]);
@@ -77,7 +78,7 @@ router.post("/", async (req, res) => {
     data: data,
   };
   const sendData = (data) => {
-    console.log(data.config.data,"config");
+    console.log(data.config.data, "config");
     return res.send({
       success: true,
       status: data.status,
